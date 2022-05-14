@@ -1,3 +1,8 @@
+// --------------------------------------------------------------------------
+// Code By LukasL28 https://github.com/LukasL28/
+// OBO Jan H.
+// --------------------------------------------------------------------------
+
 #include <Wire.h>
 #include <Adafruit_GFX.h>
 #include <Adafruit_SSD1306.h>
@@ -6,9 +11,13 @@
 #define SCREEN_WIDTH 128 // OLED display width, in pixels
 #define SCREEN_HEIGHT 64 // OLED display height, in pixels
 
+// --------------------------------------------------------------------------
+// Change timings here!
+// --------------------------------------------------------------------------
 int clutch_push_delay = 50;  //in ms
 int clutch_release_delay = 200;  //in ms
 int betwean_piston_delay = 100; //in ms
+// --------------------------------------------------------------------------
 
 // define relay's 
 #define MB1_1 2 // MM1 out
@@ -57,6 +66,7 @@ void setup() {
   pinMode(10, INPUT);
   pinMode(11, INPUT);
 
+  // set default state
   gears(1);
 }
 
@@ -74,6 +84,7 @@ if (digitalRead (Button_UP) == HIGH && Button_UP_last == LOW && gear_counter < 6
   gears(gear_counter);
 }
 
+// save last state for flank detection
 Button_DOWN_last = digitalRead(Button_DOWN);
 Button_UP_last = digitalRead(Button_UP);
 
@@ -86,11 +97,11 @@ void gear_display(int number) {
 
   switch (number)
   {
-  case 0:
+  case 0: // special case reverse
       display.println("R");
     break;
 
-  case 1:
+  case 1: // special case neutral
       display.println("N");
     break;
   default:
