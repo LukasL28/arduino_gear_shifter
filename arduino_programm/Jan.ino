@@ -7,8 +7,8 @@
 #define SCREEN_HEIGHT 64 // OLED display height, in pixels
 
 int clutch_push_delay = 50;  //in ms
-int clutch_release_delay = 50;  //in ms
-int betwean_piston_delay = 50; //in ms
+int clutch_release_delay = 200;  //in ms
+int betwean_piston_delay = 100; //in ms
 
 // define relay's 
 #define MB1_1 2 // MM1 out
@@ -57,34 +57,51 @@ void setup() {
   pinMode(10, INPUT);
   pinMode(11, INPUT);
 
+  gears(1);
 }
 
 void loop() {
 
 gear_display(gear_counter);
 
-if (Button_DOWN == HIGH && Button_DOWN_last == LOW) {
+if (digitalRead (Button_DOWN) == HIGH && Button_DOWN_last == LOW && gear_counter > 0) {
   gear_counter--;
+  gears(gear_counter);
 }
 
-if (Button_UP == HIGH && Button_UP_last == LOW) {
+if (digitalRead (Button_UP) == HIGH && Button_UP_last == LOW && gear_counter < 6 ) {
   gear_counter++;
+  gears(gear_counter);
 }
-
 
 Button_DOWN_last = digitalRead(Button_DOWN);
 Button_UP_last = digitalRead(Button_UP);
 
 }
 
-void gear_display(long number) {
+void gear_display(int number) {
+
   display.setCursor(2,85);
   display.clearDisplay();
-  display.println(number);
+
+  switch (number)
+  {
+  case 0:
+      display.println("R");
+    break;
+
+  case 1:
+      display.println("N");
+    break;
+  default:
+      display.println(number-1);
+    break;
+  }
+
   display.display();
 }
 
-void gears(long gear){
+void gears(int gear){
 
     switch (gear)
     {
