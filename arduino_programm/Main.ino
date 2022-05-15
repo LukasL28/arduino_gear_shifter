@@ -29,10 +29,13 @@ int betwean_piston_delay = 100; //in ms
 #define MB3_1 8 // MM3
 #define Button_UP 10
 #define Button_DOWN 11
+#define Button_Reverse_unlock 12
+#define Button_N 13
 
 //System variables DONT CHANGE
 int Button_DOWN_last = LOW;
 int Button_UP_last = LOW;
+int Button_N_last = LOW;
 
 int gear_counter = 1;
 
@@ -65,6 +68,8 @@ void setup() {
 
   pinMode(10, INPUT);
   pinMode(11, INPUT);
+  pinMode(12, INPUT);
+  pinMode(13, INPUT);
 
   // set default state
   gears(1);
@@ -74,9 +79,21 @@ void loop() {
 
 gear_display(gear_counter);
 
+if (digitalRead (Button_N) == HIGH && Button_N_last == LOW) {
+  gear_counter = 1;
+  gears(1);
+}
+
 if (digitalRead (Button_DOWN) == HIGH && Button_DOWN_last == LOW && gear_counter > 0) {
-  gear_counter--;
-  gears(gear_counter);
+  if (gear_counter > 1) {
+    gear_counter--;
+    gears(gear_counter);
+  } else {
+    if (digitalRead (Button_Reverse_unlock) == HIGH) {
+      gear_counter = 0;
+      gears(0);
+    }
+  }
 }
 
 if (digitalRead (Button_UP) == HIGH && Button_UP_last == LOW && gear_counter < 6 ) {
@@ -87,6 +104,7 @@ if (digitalRead (Button_UP) == HIGH && Button_UP_last == LOW && gear_counter < 6
 // save last state for flank detection
 Button_DOWN_last = digitalRead(Button_DOWN);
 Button_UP_last = digitalRead(Button_UP);
+Button_N_last = digitalRead(Button_N);
 
 }
 
