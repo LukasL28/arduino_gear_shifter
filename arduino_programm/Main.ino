@@ -27,6 +27,7 @@ int betwean_piston_delay = 100; //in ms
 #define MB2_2 6 // MM2 mid
 #define MB2_3 7 // MM2 in
 #define MB3_1 8 // MM3
+// define buttons
 #define Button_UP 10
 #define Button_DOWN 11
 #define Button_Reverse_unlock 12
