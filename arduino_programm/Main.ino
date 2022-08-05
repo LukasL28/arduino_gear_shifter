@@ -30,7 +30,7 @@ int between_piston_delay = 100; //in ms
 #define Button_UP 10
 #define Button_DOWN 11
 #define Button_Reverse_unlock 12
-#define Button_N 13
+#define Button_Nlock 13
 // --------------------------------------------------------------------------
 
 #define in 1
@@ -40,11 +40,12 @@ int between_piston_delay = 100; //in ms
 #define MB1 1
 #define MB2 2
 
+#define pressed 1
+#define released 0
 
 //System variables DONT CHANGE
 int Button_DOWN_last = LOW;
 int Button_UP_last = LOW;
-int Button_N_last = LOW;
 
 int gear_counter = 1;
 
@@ -78,7 +79,7 @@ void setup() {
   pinMode(Button_UP, INPUT);
   pinMode(Button_DOWN, INPUT);
   pinMode(Button_Reverse_unlock, INPUT);
-  pinMode(Button_N, INPUT);
+  pinMode(Button_Nlock, INPUT);
 
   // set default state
   gears(1);
@@ -88,7 +89,7 @@ void loop() {
 
 gear_display(gear_counter);
 
-if (digitalRead (Button_N) == HIGH && Button_N_last == LOW) {
+if (digitalRead (Button_Reverse_unlock) == HIGH && digitalRead(Button_UP) == HIGH && Button_UP_last == LOW) {
   gear_counter = 1;
   gears(1);
 }
@@ -113,7 +114,6 @@ if (digitalRead (Button_UP) == HIGH && Button_UP_last == LOW && gear_counter < 6
 // save last state for flank detection
 Button_DOWN_last = digitalRead(Button_DOWN);
 Button_UP_last = digitalRead(Button_UP);
-Button_N_last = digitalRead(Button_N);
 
 }
 
@@ -137,6 +137,27 @@ void gear_display(int number) {
   }
 
   display.display();
+}
+
+void clutch(int state){
+  if (digitalRead (Button_Nlock) == LOW) 
+  {
+    switch (state)
+    {
+      case pressed:
+        digitalWrite(MB3_1, HIGH);
+        break;
+      case released:
+        digitalWrite(MB3_1, LOW);
+        break;
+      default:
+        break;
+    }
+  } else {
+    digitalWrite(MB3_1, LOW);
+  }
+  
+
 }
 
 void piston(int name, int state) {
@@ -193,46 +214,46 @@ void gears(int gear){
     switch (gear)
     {
     case 0: //reverse
-        digitalWrite(MB3_1, HIGH);
+        clutch(pressed);
         delay(clutch_push_delay);
         piston(MB2, in);
         delay(between_piston_delay);
         piston(MB1, in);
         delay(clutch_release_delay);
-        digitalWrite(MB3_1, LOW);
+        clutch(released);
         break;
       break;
     case 1: //neutral 
-        digitalWrite(MB3_1, HIGH);
+        clutch(pressed);
         delay(clutch_push_delay);
         piston(MB2, mid);
         delay(between_piston_delay);
         piston(MB1, mid);
         delay(clutch_release_delay);
-        digitalWrite(MB3_1, LOW);
+        clutch(released);
       break;
     case 2: //1st
-        digitalWrite(MB3_1, HIGH);
+        clutch(pressed);
         delay(clutch_push_delay);
         piston(MB2, out);
         delay(between_piston_delay);
         piston(MB1, out);
         delay(clutch_release_delay);
-        digitalWrite(MB3_1, LOW);
+        clutch(released);
       break;
 
     case 3: //2nd
-        digitalWrite(MB3_1, HIGH);
+        clutch(pressed);
         delay(clutch_push_delay);
         piston(MB2, out);
         delay(between_piston_delay);
         piston(MB1, in);
         delay(clutch_release_delay);
-        digitalWrite(MB3_1, LOW);
+        clutch(released);
         break;
 
     case 4: //3rd
-        digitalWrite(MB3_1, HIGH);
+        clutch(pressed);
         delay(clutch_push_delay);
         piston(MB1, mid);
         delay(clutch_push_delay);
@@ -240,11 +261,11 @@ void gears(int gear){
         delay(between_piston_delay);
         piston(MB1, out);
         delay(clutch_release_delay);
-        digitalWrite(MB3_1, LOW);
+        clutch(released);
           break;
 
     case 5: //4th
-        digitalWrite(MB3_1, HIGH);
+        clutch(pressed);
         delay(clutch_push_delay);
         piston(MB1, mid);
         delay(clutch_push_delay);
@@ -252,27 +273,27 @@ void gears(int gear){
         delay(between_piston_delay);
         piston(MB1, in);
         delay(clutch_release_delay);
-        digitalWrite(MB3_1, LOW);
+        clutch(released);
           break;
 
     case 6: //5th
-        digitalWrite(MB3_1, HIGH);
+        clutch(pressed);
         delay(clutch_push_delay);
         piston(MB2, in);
         delay(between_piston_delay);
         piston(MB1, out);
         delay(clutch_release_delay);
-        digitalWrite(MB3_1, LOW);
+        clutch(released);
           break;
 
     default: //fallback to neutral
-        digitalWrite(MB3_1, HIGH);
+        clutch(pressed);
         delay(clutch_push_delay);
         piston(MB2, mid);
         delay(between_piston_delay);
         piston(MB1, mid);
         delay(clutch_release_delay);
-        digitalWrite(MB3_1, LOW);
+        clutch(released);
       break;
     }
 }
