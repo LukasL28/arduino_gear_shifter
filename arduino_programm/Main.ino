@@ -216,8 +216,10 @@ void gears(int gear){
     case 0: //reverse
         clutch(pressed);
         delay(clutch_push_delay);
-        piston(MB2, in);
+        piston(MB1, mid);
         delay(between_piston_delay);
+        piston(MB2, in);
+        delay(clutch_release_delay);
         piston(MB1, in);
         delay(clutch_release_delay);
         clutch(released);
@@ -226,17 +228,19 @@ void gears(int gear){
     case 1: //neutral 
         clutch(pressed);
         delay(clutch_push_delay);
-        piston(MB2, mid);
-        delay(between_piston_delay);
         piston(MB1, mid);
+        delay(between_piston_delay);
+        piston(MB2, mid);
         delay(clutch_release_delay);
         clutch(released);
       break;
     case 2: //1st
         clutch(pressed);
         delay(clutch_push_delay);
-        piston(MB2, out);
+        piston(MB1, mid);
         delay(between_piston_delay);
+        piston(MB2, out);
+        delay(clutch_release_delay);
         piston(MB1, out);
         delay(clutch_release_delay);
         clutch(released);
@@ -245,8 +249,10 @@ void gears(int gear){
     case 3: //2nd
         clutch(pressed);
         delay(clutch_push_delay);
-        piston(MB2, out);
+        piston(MB1, mid);
         delay(between_piston_delay);
+        piston(MB2, out);
+        delay(clutch_release_delay);
         piston(MB1, in);
         delay(clutch_release_delay);
         clutch(released);
@@ -279,8 +285,10 @@ void gears(int gear){
     case 6: //5th
         clutch(pressed);
         delay(clutch_push_delay);
-        piston(MB2, in);
+        piston(MB1, mid);
         delay(between_piston_delay);
+        piston(MB2, in);
+        delay(clutch_release_delay);
         piston(MB1, out);
         delay(clutch_release_delay);
         clutch(released);
@@ -289,9 +297,9 @@ void gears(int gear){
     default: //fallback to neutral
         clutch(pressed);
         delay(clutch_push_delay);
-        piston(MB2, mid);
-        delay(between_piston_delay);
         piston(MB1, mid);
+        delay(between_piston_delay);
+        piston(MB2, mid);
         delay(clutch_release_delay);
         clutch(released);
       break;
