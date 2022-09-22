@@ -13,9 +13,9 @@
 
 // --------------------------------------------------------------------------
 // Change timings here!
-int clutch_push_delay = 50;  //in ms
-int clutch_release_delay = 200;  //in ms
-int between_piston_delay = 100; //in ms
+int clutch_push_delay = 1000;  //in ms
+int clutch_release_delay = 1000;  //in ms
+int between_piston_delay = 1000; //in ms
 // --------------------------------------------------------------------------
 // define relay's 
 #define MB1_1 2 // MM1 out
