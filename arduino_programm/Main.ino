@@ -8,9 +8,10 @@
 #include <Adafruit_SSD1306.h>
 #include <Fonts/FreeMonoBold24pt7b.h>
 
+// --------------------------------------------------------------------------
+// Display settings
 #define SCREEN_WIDTH 128 // OLED display width, in pixels
 #define SCREEN_HEIGHT 64 // OLED display height, in pixels
-
 // --------------------------------------------------------------------------
 // Change timings here!
 int clutch_push_delay = 1000;  //in ms
@@ -25,13 +26,13 @@ int between_piston_delay = 1000; //in ms
 #define MB2_2 6 // MM2 mid
 #define MB2_3 7 // MM2 in
 #define MB3_1 8 // MM3
-// --------------------------------------------------------------------------
 // define buttons
 #define Button_UP 10
 #define Button_DOWN 11
 #define Button_Reverse_unlock 12
-#define Button_Nlock 13
+#define Button_Nlock 13 // Prevents the clutch from firing when the paddel is pressed manually
 // --------------------------------------------------------------------------
+
 
 #define in 1
 #define mid 2
@@ -47,7 +48,8 @@ int between_piston_delay = 1000; //in ms
 int Button_DOWN_last = LOW;
 int Button_UP_last = LOW;
 
-int gear_counter = 1;
+int gear_counter = 1; //gear counter Initial
+// 0 = reverse gear; 1 = neutral; 2 - 6 = gear 1 - 5 
 
 // Declaration for an SSD1306 display connected to I2C (SDA, SCL pins)
 Adafruit_SSD1306 display(SCREEN_WIDTH, SCREEN_HEIGHT, &Wire, -1);
@@ -55,7 +57,7 @@ Adafruit_SSD1306 display(SCREEN_WIDTH, SCREEN_HEIGHT, &Wire, -1);
 void setup() {
 
   Serial.begin(115200);
-
+  // initialize display
   if(!display.begin(SSD1306_SWITCHCAPVCC, 0x3C)) { // Address 0x3D for 128x64
     Serial.println(F("SSD1306 allocation failed"));
     for(;;);
@@ -66,7 +68,6 @@ void setup() {
   display.setRotation(3);
   display.setTextSize(2);
   display.setTextColor(WHITE);
-  // Display static text
   
   pinMode(MB1_1, OUTPUT);
   pinMode(MB1_2, OUTPUT);
@@ -75,7 +76,6 @@ void setup() {
   pinMode(MB2_2, OUTPUT);  
   pinMode(MB2_3, OUTPUT);
   pinMode(MB3_1, OUTPUT);
-
   pinMode(Button_UP, INPUT);
   pinMode(Button_DOWN, INPUT);
   pinMode(Button_Reverse_unlock, INPUT);
@@ -90,12 +90,13 @@ void loop() {
 gear_display(gear_counter);
 
 if (digitalRead (Button_Reverse_unlock) == HIGH && digitalRead(Button_UP) == HIGH && Button_UP_last == LOW) {
-  gear_counter = 1;
+  // Paddel up + Reverse lock to get in to neutral
+  gear_counter = 1; 
   gears(1);
 }
 
 if (digitalRead (Button_DOWN) == HIGH && Button_DOWN_last == LOW && gear_counter > 0) {
-  if (gear_counter > 1) {
+  if (gear_counter > 1) { // prevents the reverse gear if not in neutral
     gear_counter--;
     gears(gear_counter);
   } else {
