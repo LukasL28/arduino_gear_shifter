@@ -76,7 +76,7 @@ void setup() {
   digitalWrite(MB2_2, LOW);
   digitalWrite(MB2_3, LOW);
   digitalWrite(MB3_1, LOW);
-  
+
   pinMode(MB1_1, OUTPUT);
   pinMode(MB1_2, OUTPUT);
   pinMode(MB1_3, OUTPUT);
@@ -175,9 +175,9 @@ void piston(int name, int state) {
       switch (state) 
       {
         case in:
-          digitalWrite(MB1_1, HIGH);
-          digitalWrite(MB1_2, HIGH);
-          digitalWrite(MB1_3, LOW);
+          digitalWrite(MB1_1, LOW);
+          digitalWrite(MB1_2, LOW);
+          digitalWrite(MB1_3, HIGH);
           break;
         case mid:
           digitalWrite(MB1_1, HIGH);
@@ -187,7 +187,7 @@ void piston(int name, int state) {
         case out:
           digitalWrite(MB1_1, LOW);
           digitalWrite(MB1_2, HIGH);
-          digitalWrite(MB1_3, HIGH);
+          digitalWrite(MB1_3, LOW);
           break;
         default:
           break;
@@ -197,9 +197,9 @@ void piston(int name, int state) {
       switch (state) 
       {
       case in:
-          digitalWrite(MB2_1, HIGH);
-          digitalWrite(MB2_2, HIGH);
-          digitalWrite(MB2_3, LOW);
+          digitalWrite(MB2_1, LOW);
+          digitalWrite(MB2_2, LOW);
+          digitalWrite(MB2_3, HIGH);
           break;
         case mid:
           digitalWrite(MB2_1, HIGH);
@@ -209,7 +209,7 @@ void piston(int name, int state) {
         case out:
           digitalWrite(MB2_1, LOW);
           digitalWrite(MB2_2, HIGH);
-          digitalWrite(MB2_3, HIGH);
+          digitalWrite(MB2_3, LOW);
           break;
         default:
           break;
@@ -227,7 +227,7 @@ void gears(int gear){
         delay(clutch_push_delay);
         piston(MB1, mid);
         delay(between_piston_delay);
-        piston(MB2, in);
+        piston(MB2, out);
         delay(clutch_release_delay);
         piston(MB1, in);
         delay(clutch_release_delay);
@@ -248,9 +248,9 @@ void gears(int gear){
         delay(clutch_push_delay);
         piston(MB1, mid);
         delay(between_piston_delay);
-        piston(MB2, out);
+        piston(MB2, in);
         delay(clutch_release_delay);
-        piston(MB1, out);
+        piston(MB1, in);
         delay(clutch_release_delay);
         clutch(released);
       break;
@@ -260,9 +260,9 @@ void gears(int gear){
         delay(clutch_push_delay);
         piston(MB1, mid);
         delay(between_piston_delay);
-        piston(MB2, out);
+        piston(MB2, in);
         delay(clutch_release_delay);
-        piston(MB1, in);
+        piston(MB1, out);
         delay(clutch_release_delay);
         clutch(released);
         break;
@@ -296,9 +296,9 @@ void gears(int gear){
         delay(clutch_push_delay);
         piston(MB1, mid);
         delay(between_piston_delay);
-        piston(MB2, in);
+        piston(MB2, out);
         delay(clutch_release_delay);
-        piston(MB1, out);
+        piston(MB1, in);
         delay(clutch_release_delay);
         clutch(released);
           break;
