@@ -39,8 +39,11 @@ These instructions will get you a copy of the project up and running on your loc
 Working Arduino IDE, and the following libraries:
 
 ```
-Adafruit SSD1306
-Adafruit GFX Library
+Adafruit SSD1306 2.5.3
+Adafruit GFX Library V1.11.0
+Adafruit TFTLCD Library V1.0.3
+Adafruit Circuit Playground V1.11.3
+Adafruit BusIO V1.11.6
 Wire Built-In
 ```
 
