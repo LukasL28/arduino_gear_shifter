@@ -277,7 +277,7 @@ void gears(int gear){
         delay(clutch_push_delay);
         piston(MB2, mid);
         delay(between_piston_delay);
-        piston(MB1, out);
+        piston(MB1, in);
         delay(clutch_release_delay);
         clutch(released);
           break;
@@ -289,7 +289,7 @@ void gears(int gear){
         delay(clutch_push_delay);
         piston(MB2, mid);
         delay(between_piston_delay);
-        piston(MB1, in);
+        piston(MB1, out);
         delay(clutch_release_delay);
         clutch(released);
           break;
