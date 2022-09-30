@@ -69,6 +69,14 @@ void setup() {
   display.setTextSize(2);
   display.setTextColor(WHITE);
   
+  digitalWrite(MB1_1, LOW);
+  digitalWrite(MB1_2, LOW);
+  digitalWrite(MB1_3, LOW);
+  digitalWrite(MB2_1, LOW);
+  digitalWrite(MB2_2, LOW);
+  digitalWrite(MB2_3, LOW);
+  digitalWrite(MB3_1, LOW);
+  
   pinMode(MB1_1, OUTPUT);
   pinMode(MB1_2, OUTPUT);
   pinMode(MB1_3, OUTPUT);
