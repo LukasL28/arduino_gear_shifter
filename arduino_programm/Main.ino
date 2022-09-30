@@ -17,6 +17,7 @@
 int clutch_push_delay = 1000;  //in ms
 int clutch_release_delay = 1000;  //in ms
 int between_piston_delay = 1000; //in ms
+int between_valve_delay = 200; //in ms
 // --------------------------------------------------------------------------
 // define relay's 
 #define MB1_1 2 // MM1 out
@@ -182,6 +183,7 @@ void piston(int name, int state) {
         case mid:
           digitalWrite(MB1_1, HIGH);
           digitalWrite(MB1_2, LOW);
+          delay(between_valve_delay);
           digitalWrite(MB1_3, HIGH);
           break;
         case out:
@@ -204,6 +206,7 @@ void piston(int name, int state) {
         case mid:
           digitalWrite(MB2_1, HIGH);
           digitalWrite(MB2_2, LOW);
+          delay(between_valve_delay);
           digitalWrite(MB2_3, HIGH);
           break;
         case out:

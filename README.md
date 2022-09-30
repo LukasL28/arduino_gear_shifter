@@ -70,13 +70,11 @@ Configure your in/outputs here:
 Configure your timings here
 
 ```C++
-// --------------------------------------------------------------------------
 // Change timings here!
-// --------------------------------------------------------------------------
-int clutch_push_delay = 50;  //in ms
-int clutch_release_delay = 200;  //in ms
-int betwean_piston_delay = 100; //in ms
-// --------------------------------------------------------------------------
+int clutch_push_delay = 1000;  //in ms
+int clutch_release_delay = 1000;  //in ms
+int between_piston_delay = 1000; //in ms
+int between_valve_delay = 200; //in ms
 ```
 
 Configure your screen size here:
