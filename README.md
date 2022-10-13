@@ -91,7 +91,7 @@ Configure your screen size here:
 ## ✍️ Authors <a name = "authors"></a>
 
 - [@LukasL28](https://github.com/LukasL28) - Software Developer
-- [@JanH.]() - Initial idea & project lead
+- [@JanH.](https://github.com/JanH75) - Initial idea & project lead
 
 ## 🎉 Acknowledgements <a name = "acknowledgement"></a>
 
