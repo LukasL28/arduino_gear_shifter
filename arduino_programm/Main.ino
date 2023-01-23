@@ -7,6 +7,7 @@
 #include <Adafruit_GFX.h>
 #include <Adafruit_SSD1306.h>
 #include <Fonts/FreeMonoBold24pt7b.h>
+#include <avdweb_VirtualDelay.h>
 
 // --------------------------------------------------------------------------
 // Display settings
@@ -18,6 +19,7 @@ int clutch_push_delay = 300;  //in ms
 int clutch_release_delay = 300;  //in ms
 int between_piston_delay = 75; //in ms
 int between_valve_delay = 25; //in ms
+int shift_delay = 50; //in ms
 // --------------------------------------------------------------------------
 // define relay's 
 #define MB1_1 2 // MM1 out
@@ -51,6 +53,8 @@ int Button_UP_last = LOW;
 
 int gear_counter = 1; //gear counter Initial
 // 0 = reverse gear; 1 = neutral; 2 - 6 = gear 1 - 5 
+
+VirtualDelay shift; // default = millis
 
 // Declaration for an SSD1306 display connected to I2C (SDA, SCL pins)
 Adafruit_SSD1306 display(SCREEN_WIDTH, SCREEN_HEIGHT, &Wire, -1);
@@ -104,7 +108,9 @@ if (digitalRead (Button_Reverse_unlock) == HIGH && digitalRead(Button_UP) == HIG
   gears(1);
 }
 
-if (digitalRead (Button_DOWN) == HIGH && Button_DOWN_last == LOW && gear_counter > 0) {
+// Shift down
+if (digitalRead (Button_DOWN) == HIGH && Button_DOWN_last == LOW && gear_counter > 0 && shift.elapsed()) {
+  shift.start(shift_delay);
   if (gear_counter > 1) { // prevents the reverse gear if not in neutral
     gear_counter--;
     gears(gear_counter);
@@ -116,7 +122,9 @@ if (digitalRead (Button_DOWN) == HIGH && Button_DOWN_last == LOW && gear_counter
   }
 }
 
-if (digitalRead (Button_UP) == HIGH && Button_UP_last == LOW && gear_counter < 6 ) {
+// Shift up
+if (digitalRead (Button_UP) == HIGH && Button_UP_last == LOW && gear_counter < 6 && shift.elapsed()) {
+  shift.start(shift_delay);
   gear_counter++;
   gears(gear_counter);
 }

@@ -20,11 +20,14 @@
 
 ## 📝 Table of Contents
 
-- [About](#about)
-- [Getting Started](#getting_started)
-- [Built for](#built_for)
-- [Authors](#authors)
-- [Acknowledgments](#acknowledgement)
+- [📝 Table of Contents](#-table-of-contents)
+- [🧐 About ](#-about-)
+- [🏁 Getting Started ](#-getting-started-)
+  - [Prerequisites](#prerequisites)
+  - [Installing](#installing)
+- [⛏️ Built for ](#️-built-for-)
+- [✍️ Authors ](#️-authors-)
+- [🎉 Acknowledgements ](#-acknowledgements-)
 
 ## 🧐 About <a name = "about"></a>
 
@@ -45,6 +48,7 @@ Adafruit TFTLCD Library V1.0.3
 Adafruit Circuit Playground V1.11.3
 Adafruit BusIO V1.11.6
 Wire Built-In
+avdweb_VirtualDelay
 ```
 
 ### Installing
