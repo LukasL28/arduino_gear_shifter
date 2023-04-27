@@ -89,10 +89,10 @@ void setup() {
   pinMode(MB2_2, OUTPUT);  
   pinMode(MB2_3, OUTPUT);
   pinMode(MB3_1, OUTPUT);
-  pinMode(Button_UP, INPUT);
-  pinMode(Button_DOWN, INPUT);
-  pinMode(Button_Reverse_unlock, INPUT);
-  pinMode(Button_Nlock, INPUT);
+  pinMode(Button_UP, INPUT_PULLUP);
+  pinMode(Button_DOWN, INPUT_PULLUP);
+  pinMode(Button_Reverse_unlock, INPUT_PULLUP);
+  pinMode(Button_Nlock, INPUT_PULLUP);
 
   // set default state
   gears(1);
