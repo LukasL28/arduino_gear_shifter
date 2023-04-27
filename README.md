@@ -24,7 +24,8 @@
 - [🧐 About ](#-about-)
 - [🏁 Getting Started ](#-getting-started-)
   - [Prerequisites](#prerequisites)
-  - [Installing](#installing)
+  - [Configuration](#configuration)
+- [Circuit diagram](#circuit-diagram)
 - [⛏️ Built for ](#️-built-for-)
 - [✍️ Authors ](#️-authors-)
 - [🎉 Acknowledgements ](#-acknowledgements-)
@@ -51,7 +52,7 @@ Wire Built-In
 avdweb_VirtualDelay
 ```
 
-### Installing
+### Configuration
 
 Configure your in/outputs here:
 
@@ -88,6 +89,12 @@ Configure your screen size here:
 #define SCREEN_WIDTH 128 // OLED display width, in pixels
 #define SCREEN_HEIGHT 64 // OLED display height, in pixels
 ```
+
+## Circuit diagram
+
+<p align="center">
+  <img src="./circuit_plan/circuit_plan.SVG" />
+</p>
 
 ## ⛏️ Built for <a name = "built_for"></a>
 
