@@ -48,8 +48,8 @@ int shift_delay = 50; //in ms
 #define released 0
 
 //System variables DONT CHANGE
-int Button_DOWN_last = LOW;
-int Button_UP_last = LOW;
+int Button_DOWN_last = HIGH;
+int Button_UP_last = HIGH;
 
 int gear_counter = 1; //gear counter Initial
 // 0 = reverse gear; 1 = neutral; 2 - 6 = gear 1 - 5 
