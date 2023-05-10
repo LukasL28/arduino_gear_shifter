@@ -102,20 +102,20 @@ void loop() {
 
 gear_display(gear_counter);
 
-if (digitalRead (Button_Reverse_unlock) == HIGH && digitalRead(Button_UP) == HIGH && Button_UP_last == LOW) {
+if (digitalRead (Button_Reverse_unlock) == LOW && digitalRead(Button_UP) == LOW && Button_UP_last == HIGH) {
   // Paddel up + Reverse lock to get in to neutral
   gear_counter = 1; 
   gears(1);
 }
 
 // Shift down
-if (digitalRead (Button_DOWN) == HIGH && Button_DOWN_last == LOW && gear_counter > 0 && shift.elapsed()) {
+if (digitalRead (Button_DOWN) == LOW && Button_DOWN_last == HIGH && gear_counter > 0 && shift.elapsed()) {
   shift.start(shift_delay);
   if (gear_counter > 1) { // prevents the reverse gear if not in neutral
     gear_counter--;
     gears(gear_counter);
   } else {
-    if (digitalRead (Button_Reverse_unlock) == HIGH) {
+    if (digitalRead (Button_Reverse_unlock) == LOW) {
       gear_counter = 0;
       gears(0);
     }
@@ -123,7 +123,7 @@ if (digitalRead (Button_DOWN) == HIGH && Button_DOWN_last == LOW && gear_counter
 }
 
 // Shift up
-if (digitalRead (Button_UP) == HIGH && Button_UP_last == LOW && gear_counter < 6 && shift.elapsed()) {
+if (digitalRead (Button_UP) == LOW && Button_UP_last == HIGH && gear_counter < 6 && shift.elapsed()) {
   shift.start(shift_delay);
   gear_counter++;
   gears(gear_counter);
@@ -158,7 +158,7 @@ void gear_display(int number) {
 }
 
 void clutch(int state){
-  if (digitalRead (Button_Nlock) == LOW) 
+  if (digitalRead (Button_Nlock) == HIGH) 
   {
     switch (state)
     {
