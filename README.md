@@ -93,7 +93,7 @@ Configure your screen size here:
 ## Circuit diagram
 
 <p align="center">
-  <img src="./circuit_plan/circuit_plan.SVG" />
+  <img src="./circuit_plan/circuit_plan.JPG" />
 </p>
 
 ## ⛏️ Built for <a name = "built_for"></a>
