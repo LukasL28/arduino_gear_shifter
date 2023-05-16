@@ -7,7 +7,6 @@
 #include <Adafruit_GFX.h>
 #include <Adafruit_SSD1306.h>
 #include <Fonts/FreeMonoBold24pt7b.h>
-#include <avdweb_VirtualDelay.h>
 
 // --------------------------------------------------------------------------
 // Display settings
@@ -53,8 +52,6 @@ int Button_UP_last = HIGH;
 
 int gear_counter = 1; //gear counter Initial
 // 0 = reverse gear; 1 = neutral; 2 - 6 = gear 1 - 5 
-
-VirtualDelay shift; // default = millis
 
 // Declaration for an SSD1306 display connected to I2C (SDA, SCL pins)
 Adafruit_SSD1306 display(SCREEN_WIDTH, SCREEN_HEIGHT, &Wire, -1);
@@ -109,8 +106,7 @@ if (digitalRead (Button_Reverse_unlock) == LOW && digitalRead(Button_UP) == LOW 
 }
 
 // Shift down
-if (digitalRead (Button_DOWN) == LOW && Button_DOWN_last == HIGH && gear_counter > 0 && shift.elapsed()) {
-  shift.start(shift_delay);
+if (digitalRead (Button_DOWN) == LOW && Button_DOWN_last == HIGH && gear_counter > 0) {
   if (gear_counter > 1) { // prevents the reverse gear if not in neutral
     gear_counter--;
     gears(gear_counter);
@@ -123,8 +119,7 @@ if (digitalRead (Button_DOWN) == LOW && Button_DOWN_last == HIGH && gear_counter
 }
 
 // Shift up
-if (digitalRead (Button_UP) == LOW && Button_UP_last == HIGH && gear_counter < 6 && shift.elapsed()) {
-  shift.start(shift_delay);
+if (digitalRead (Button_UP) == LOW && Button_UP_last == HIGH && gear_counter < 6) {
   gear_counter++;
   gears(gear_counter);
 }
