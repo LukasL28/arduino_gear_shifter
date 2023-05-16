@@ -32,7 +32,7 @@ int shift_delay = 50; //in ms
 #define Button_UP 10
 #define Button_DOWN 11
 #define Button_Reverse_unlock 12
-#define Button_Nlock 13 // Prevents the clutch from firing when the paddel is pressed manually
+#define Button_Nlock 9 // Prevents the clutch from firing when the paddel is pressed manually
 // --------------------------------------------------------------------------
 
 
