@@ -47,8 +47,8 @@ int shift_delay = 50; //in ms
 #define released 0
 
 //System variables DONT CHANGE
-int Button_DOWN_last = HIGH;
-int Button_UP_last = HIGH;
+int Button_DOWN_last = LOW;
+int Button_UP_last = LOW;
 
 int gear_counter = 1; //gear counter Initial
 // 0 = reverse gear; 1 = neutral; 2 - 6 = gear 1 - 5 
@@ -86,10 +86,10 @@ void setup() {
   pinMode(MB2_2, OUTPUT);  
   pinMode(MB2_3, OUTPUT);
   pinMode(MB3_1, OUTPUT);
-  pinMode(Button_UP, INPUT_PULLUP);
-  pinMode(Button_DOWN, INPUT_PULLUP);
-  pinMode(Button_Reverse_unlock, INPUT_PULLUP);
-  pinMode(Button_Nlock, INPUT_PULLUP);
+  pinMode(Button_UP, INPUT);
+  pinMode(Button_DOWN, INPUT);
+  pinMode(Button_Reverse_unlock, INPUT);
+  pinMode(Button_Nlock, INPUT);
 
   // set default state
   gears(1);
@@ -99,19 +99,19 @@ void loop() {
 
 gear_display(gear_counter);
 
-if (digitalRead (Button_Reverse_unlock) == LOW && digitalRead(Button_UP) == LOW && Button_UP_last == HIGH) {
+if (digitalRead (Button_Reverse_unlock) == HIGH && digitalRead(Button_UP) == HIGH && Button_UP_last == LOW) {
   // Paddel up + Reverse lock to get in to neutral
   gear_counter = 1; 
   gears(1);
 }
 
 // Shift down
-if (digitalRead (Button_DOWN) == LOW && Button_DOWN_last == HIGH && gear_counter > 0) {
+if (digitalRead (Button_DOWN) == HIGH && Button_DOWN_last == LOW && gear_counter > 0) {
   if (gear_counter > 1) { // prevents the reverse gear if not in neutral
     gear_counter--;
     gears(gear_counter);
   } else {
-    if (digitalRead (Button_Reverse_unlock) == LOW) {
+    if (digitalRead (Button_Reverse_unlock) == HIGH) {
       gear_counter = 0;
       gears(0);
     }
@@ -119,7 +119,7 @@ if (digitalRead (Button_DOWN) == LOW && Button_DOWN_last == HIGH && gear_counter
 }
 
 // Shift up
-if (digitalRead (Button_UP) == LOW && Button_UP_last == HIGH && gear_counter < 6) {
+if (digitalRead (Button_UP) == HIGH && Button_UP_last == LOW && gear_counter < 6) {
   gear_counter++;
   gears(gear_counter);
 }
@@ -153,7 +153,7 @@ void gear_display(int number) {
 }
 
 void clutch(int state){
-  if (digitalRead (Button_Nlock) == HIGH) 
+  if (digitalRead (Button_Nlock) == LOW) 
   {
     switch (state)
     {
